@@ -15,18 +15,22 @@
 
 <body>
 
-    <div class="title">
+    <div class="title-container">
         <h1>Super Image Resolution</h1>
         <p>This is a super image resolution program implementation.</p>
         <p><i>Upload an image to be upscaled and decide on its resolution.</i></p>
     </div>
 
-    <div class="upload">
-
-        <div class="original-image">
-            <div class="drop-area">
-                Drop image here
-            </div>
+    <div class="images-container">
+        <div class="hero">
+            <label for="input-file" id="drop-area">
+                <input type="file" accept="image/*" id="input-file" hidden>
+                <div id="img-view">
+                    <img src="public/upload.png">
+                    <p>Drag and drop or click here<br> to upload image</p>
+                    <span>Upload any images from desktop</span>
+                </div>
+            </label>
             <div class="resolution">
                 <p><i>Resolution model</i></p>
                 <form>
@@ -47,10 +51,9 @@
                 </button>
             </div>
         </div>
-
-        <div class="super-image">
-            <div class="display-area">
-                Super resolved image
+        <div class="hero">
+            <div id="resolved-img-view">
+                <img src="">
             </div>
         </div>
     </div>
