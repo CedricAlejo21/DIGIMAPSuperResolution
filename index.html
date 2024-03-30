@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Super Resolution</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="icon" type="image/png" href="public/icon.png">
+</head>
+
+<header>
+    <img src="public/full-logo.png">
+</header>
+
+<body>
+
+    <div class="title">
+        <h1>Super Image Resolution</h1>
+        <p>This is a super image resolution program implementation.</p>
+        <p><i>Upload an image to be upscaled and decide on its resolution.</i></p>
+    </div>
+
+    <div class="upload">
+
+        <div class="original-image">
+            <div class="drop-area" ondrop="dropHandler(event)" ondragover="dragOverHandler(event)">
+                Drop image here
+            </div>
+            <div class="resolution">
+                <p><i>Resolution model</i></p>
+                <form>
+                    <input type="radio" id="x2" name="resolution" value="2x">
+                    <label for="x2">2x</label><br>
+                    <input type="radio" id="x4" name="resolution" value="4x">
+                    <label for="x4">4x</label><br>
+                    <input type="radio" id="x8" name="resolution" value="8x">
+                    <label for="x8">8x</label><br>
+                </form>
+            </div>
+        </div>
+
+        <div class="super-image">
+            <div class="drop-area" ondrop="dropHandler(event)" ondragover="dragOverHandler(event)">
+                Drop image here
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
