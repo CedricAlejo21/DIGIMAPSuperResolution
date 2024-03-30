@@ -1,3 +1,5 @@
+/* Header */
+
 header {
     background-color: #FFFF;
     padding: 10px;
@@ -12,6 +14,8 @@ header img {
     height: auto;
 }
 
+/* Content */
+
 body {
     background-color: #FFFF;
     font-family: Verdana, sans-serif;
@@ -23,12 +27,14 @@ body {
     text-align: center;
     color: #032130;
     font-family: Arial, sans-serif;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 }
 
 .title p {
     font-family: Verdana, sans-serif;
 }
+
+/* Image Section */
 
 .upload {
     display: flex;
@@ -46,17 +52,19 @@ body {
     border-radius: 5px;
 }
 
+/* Original Image Section */
+
 .drop-area {
     width: 500px;
-    height: auto;
+    height: 300px;
     border: 2px dashed #ccc;
     text-align: center;
-    line-height: 200px;
+    line-height: 300px;
     margin: 20px auto;
 }
 
 .resolution {
-    margin-top: 30px;
+    margin-top: 20px;
     padding-top: 10px;
     padding-bottom: 20px;
     padding-left: 20px;
@@ -74,13 +82,54 @@ form {
     margin-left: 20px;
 }
 
-footer {
+.buttons {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#cancel-button,
+#submit-button {
+    width: 48%;
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+    font-family: Verdana, sans-serif;
+}
+
+#cancel-button {
+    margin-right: 10px;
+}
+
+#submit-button {
+    background-color: #2CB084;
+    color: #fff;
+}
+
+#submit-button:hover {
     background-color: #032130;
-    font-family: Arial, sans-serif;
+}
+
+/* Resolved Image Section */
+
+.display-area {
+    width: 500px;
+    height: 300px;
+    border: 2px solid #ccc;
+    text-align: center;
+    line-height: 300px;
+    margin: 20px auto;
+}
+
+/* Footer */
+
+footer {
+    position: relative;
+    margin-top: 50px;
+    bottom: 0;
+    width: 100%;
+    background-color: #032130;
+    font-family: Verdana, sans-serif;
     color: #fff;
     padding: 10px;
     text-align: center;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
 }

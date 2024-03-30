@@ -24,7 +24,7 @@
     <div class="upload">
 
         <div class="original-image">
-            <div class="drop-area" ondrop="dropHandler(event)" ondragover="dragOverHandler(event)">
+            <div class="drop-area">
                 Drop image here
             </div>
             <div class="resolution">
@@ -38,11 +38,19 @@
                     <label for="x8">8x</label><br>
                 </form>
             </div>
+            <div class="buttons">
+                <button id="cancel-button">
+                    Cancel
+                </button>
+                <button id="submit-button">
+                    Submit
+                </button>
+            </div>
         </div>
 
         <div class="super-image">
-            <div class="drop-area" ondrop="dropHandler(event)" ondragover="dragOverHandler(event)">
-                Drop image here
+            <div class="display-area">
+                Super resolved image
             </div>
         </div>
     </div>
@@ -50,5 +58,9 @@
     <script src="script.js"></script>
 
 </body>
+
+<footer>
+    <p>© DIGIMAP S13 GR. 5</p>
+</footer>
 
 </html>
