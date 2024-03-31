@@ -43,13 +43,21 @@ body {
 
 /* Images Area */
 
-.hero {
+.hero-input {
     width: 100%;
     min-height: 50vh;
-    display: flex;
     align-items: center;
     display: flex;
     flex-direction: column;
+}
+
+.hero-output {
+    width: 100%;
+    min-height: 50vh;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
 }
 
 #drop-area {
@@ -159,4 +167,17 @@ footer {
     color: #fff;
     padding: 10px;
     text-align: center;
+}
+
+/* Responsiveness */
+
+@media (max-width: 768px) {
+    .images-container {
+        flex-direction: column;
+    }
+
+    .hero-output {
+        margin-left: 0;
+        margin-top: 20px;
+    }
 }
