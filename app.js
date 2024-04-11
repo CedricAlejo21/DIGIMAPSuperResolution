@@ -1,10 +1,13 @@
 const express = require('express');
 const multer = require('multer');
 const { spawn } = require('child_process');
+const cors = require('cors');
 const path = require('path');
 
 const app = express();
 const PORT = 3000;
+
+app.use(cors());
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
