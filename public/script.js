@@ -40,13 +40,15 @@ function submitImage() {
         const formData = new FormData();
         formData.append('image', imgData);
 
-        fetch('http://localhost:3000/process_image', {
+        const serverUrl = window.location.origin; // Get the server URL
+
+        fetch(`${serverUrl}/process_image`, {
             method: 'POST',
             body: formData
         })
         .then(response => response.json())
         .then(data => {
-            const processedImageUrl = `http://localhost:3000/processed_images/${inputFile.files[0].name.replace('.png', '')}_rlt.png`; // Construct URL for processed image
+            const processedImageUrl = `${serverUrl}/processed_images/${inputFile.files[0].name.replace('.png', '')}_rlt.png`; // Construct URL for processed image
             resolvedView.style.backgroundImage = `url(${processedImageUrl})`;
             resolvedView.style.border = "2px solid #bbb5ff";
         })
