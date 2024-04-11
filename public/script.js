@@ -23,7 +23,7 @@ function cancelUpload() {
         imageView.style.backgroundImage = 'none';
         resolvedView.style.backgroundImage = 'none';
         imageView.innerHTML = `
-            <img src="public/upload.png">
+            <img src="img/upload.png">
             <p>Drag and drop or click here<br> to upload image</p>
             <span>Upload any images from desktop</span>
         `;
