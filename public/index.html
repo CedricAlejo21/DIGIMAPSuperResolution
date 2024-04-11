@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Super Resolution</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="icon" type="image/png" href="img/icon.png">
+</head>
+
+<header>
+    <img src="img/full-logo.png">
+</header>
+
+<body>
+    <div class="title-container">
+        <h1>Super Image Resolution</h1>
+        <p>This is a super image resolution program implementation.</p>
+        <p><i>Upload an image to be upscaled and decide on its resolution.</i></p>
+    </div>
+
+    <div class="images-container">
+        <div class="hero-input">
+            <label for="input-file" id="drop-area">
+                <input type="file" accept="image/*" id="input-file" hidden>
+                <div id="img-view">
+                    <img src="img/upload.png">
+                    <p>Drag and drop or click here<br> to upload image</p>
+                    <span>Upload any images from desktop</span>
+                </div>
+            </label>
+            <div class="resolution">
+                <p><i>Resolution model</i></p>
+                <form>
+                    <input type="radio" id="x2" name="resolution" value="2x">
+                    <label for="x2">2x</label><br>
+                    <input type="radio" id="x4" name="resolution" value="4x">
+                    <label for="x4">4x</label><br>
+                    <input type="radio" id="x8" name="resolution" value="8x">
+                    <label for="x8">8x</label><br>
+                </form>
+            </div>
+            <div class="buttons">
+                <button id="cancel-button">
+                    Cancel
+                </button>
+                <button id="submit-button">
+                    Submit
+                </button>
+            </div>
+        </div>
+        <div class="hero-output">
+            <div id="resolved-img-view">
+                <img src="">
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+
+<footer>
+    <p>© DIGIMAP S13 GR. 5</p>
+</footer>
+
+</html>
