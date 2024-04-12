@@ -35,6 +35,16 @@ body {
     font-family: Verdana, sans-serif;
 }
 
+.title-container a {
+    font-family: Verdana, sans-serif;
+    text-decoration: none;
+    color: inherit;
+}
+
+.title-container a:hover {
+    color: #2CB084;
+}
+
 .images-container {
     display: flex;
     flex-direction: row;
@@ -160,6 +170,30 @@ form {
 #submit-button:hover,
 #download-button:hover {
     background-color: #032130;
+}
+
+/* Footer */
+
+.footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #f8f8f8;
+    padding: 20px 0;
+}
+
+.footer img {
+    height: 30px;
+}
+
+.footer a {
+    margin-right: 10px;
+    text-decoration: none;
+    color: inherit;
 }
 
 /* Responsiveness */
