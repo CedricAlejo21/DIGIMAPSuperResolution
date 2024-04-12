@@ -34,6 +34,38 @@ app.post('/process_image', upload.single('image'), (req, res) => {
     console.log(`Image path: ${imagePath}`);
     const pythonProcess = spawn('python', ['ESRGAN_trial/test.py', imagePath]);
 
+    pythonProcess.on('error', (err) => {
+        console.error('Failed to start Python process:', err);
+        res.status(500).json({ message: 'Internal server error' });
+    });
+
+    pythonProcess.stdout.on('data', (data) => {
+        // Handle the data received from the Python process
+        console.log('Received data from Python process...');
+        console.log(`Python process stdout: ${data}`);
+        
+        // Assuming data is the path to the processed image
+        const imagePath = data.toString().trim();
+        const resultsFileName = `${path.basename(imagePath)}_rlt.png`;
+        const resultsPath = path.join('ESRGAN_trial', 'results', resultsFileName);
+        
+        console.log(`Results path: ${resultsPath}`);
+        
+        // Send the processed image path back to the client
+        res.json({ resultsPath });
+    });
+
+    pythonProcess.stderr.on('data', (data) => {
+        // Handle the data received from the Python process's stderr
+        console.error('Received error data from Python process:');
+        console.error(data.toString());
+        
+        // Send an error response back to the client
+        res.status(500).json({ message: 'Internal server error' });
+    });
+    
+
+
     pythonProcess.stdout.on('data', (data) => {
         console.log('Received data from Python process...');
         console.log(`Python process stdout: ${data}`);
