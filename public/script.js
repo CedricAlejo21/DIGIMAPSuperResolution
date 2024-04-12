@@ -48,6 +48,10 @@ function submitImage() {
         const serverUrl = window.location.origin; // Get the server URL
 
         console.log('Sending image to server...');
+        console.log('Request details:', `${serverUrl}/process_image`, {
+            method: 'POST',
+            body: formData
+        });
         fetch(`${serverUrl}/process_image`, {
             method: 'POST',
             body: formData

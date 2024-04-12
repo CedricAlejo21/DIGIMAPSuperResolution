@@ -56,6 +56,7 @@ app.get('/processed_images/:imageName', (req, res) => {
     const imageName = req.params.imageName;
     const imagePath = path.join(__dirname, 'ESRGAN_trial', 'results', imageName);
     res.sendFile(imagePath);
+    console.log(`Processed image sent: ${imagePath}`);
 });
 
 app.get('/', (req, res) => {
