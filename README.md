@@ -1,5 +1,12 @@
 # DIGIMAP Super Resolution
 
+To run this program, install the required modules and execute the following command:
+```
+pip install opencv-python
+pip install torch
+node app.js
+```
+
 This model cannot output the best results for every single image. Your mileage may vary. For best results, try following this guide for input images:
 
 ![Screenshot 2024-04-12 at 11 08 05 AM](https://github.com/CedricAlejo21/DIGIMAPSuperResolution/assets/100471162/36d9d2c0-3aa9-4ecd-8aa4-3d841e831a71)
