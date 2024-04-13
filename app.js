@@ -36,50 +36,29 @@ app.post('/process_image', upload.single('image'), (req, res) => {
 
     pythonProcess.on('error', (err) => {
         console.error('Failed to start Python process:', err);
-        res.status(500).json({ message: 'Internal server error' });
+        if (!res.headersSent) {
+            res.status(500).json({ message: 'Internal server error' });
+        }
     });
 
     pythonProcess.stdout.on('data', (data) => {
-        // Handle the data received from the Python process
         console.log('Received data from Python process...');
         console.log(`Python process stdout: ${data}`);
-        
-        // Assuming data is the path to the processed image
         const imagePath = data.toString().trim();
         const resultsFileName = `${path.basename(imagePath)}_rlt.png`;
         const resultsPath = path.join('ESRGAN_trial', 'results', resultsFileName);
-        
         console.log(`Results path: ${resultsPath}`);
-        
-        // Send the processed image path back to the client
-        res.json({ resultsPath });
-    });
-
-    pythonProcess.stderr.on('data', (data) => {
-        // Handle the data received from the Python process's stderr
-        console.error('Received error data from Python process:');
-        console.error(data.toString());
-        
-        // Send an error response back to the client
-        res.status(500).json({ message: 'Internal server error' });
-    });
-    
-
-
-    pythonProcess.stdout.on('data', (data) => {
-        console.log('Received data from Python process...');
-        console.log(`Python process stdout: ${data}`);
-        const imagePath = data.toString().trim(); // Assuming data is the path to the processed image
-        const resultsFileName = `${path.basename(imagePath)}_rlt.png`; // Append '_rlt.png' to the filename
-        const resultsPath = path.join('ESRGAN_trial', 'results', resultsFileName); // Construct the full path to the processed image
-        console.log(`Results path: ${resultsPath}`);
-        res.json({ resultsPath });
+        if (!res.headersSent) {
+            res.json({ resultsPath });
+        }
     });
 
     pythonProcess.stderr.on('data', (data) => {
         console.error(`Python process stderr: ${data}`);
         console.error(`Error: ${data}`);
-        res.status(500).json({ message: 'Internal server error' });
+        if (!res.headersSent) {
+            res.status(500).json({ message: 'Internal server error' });
+        }
     });
 });
 
