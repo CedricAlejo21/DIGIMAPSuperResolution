@@ -4,10 +4,12 @@ const imageView = document.getElementById("img-view");
 const resolvedView = document.getElementById("resolved-img-view");
 const cancelButton = document.getElementById("cancel-button");
 const submitButton = document.getElementById("submit-button");
+const downloadButton = document.getElementById("download-button");
 
 inputFile.addEventListener("change", uploadImage);
 cancelButton.addEventListener("click", cancelUpload);
 submitButton.addEventListener("click", submitImage);
+downloadButton.addEventListener("click", downloadImage);
 
 function uploadImage() {
     console.log('Uploading image...');
@@ -65,6 +67,31 @@ function submitImage() {
         })
         .catch(error => console.error('Error:', error));
     }
+}
+
+function downloadImage() {
+    console.log('Downloading image...');
+    
+    const backgroundImage = resolvedView.style.backgroundImage;
+
+    if (backgroundImage === 'none' || !backgroundImage) {
+        alert("There's no processed image to download.");
+        return;
+    }
+
+    const imageUrl = backgroundImage.replace('url("', '').replace('")', '');
+
+    const filename = imageUrl.split('/').pop();
+
+    const link = document.createElement('a');
+    link.href = imageUrl;
+    link.download = filename;
+
+    document.body.appendChild(link);
+
+    link.click();
+
+    document.body.removeChild(link);
 }
 
 dropArea.addEventListener("dragover", function (e) {
