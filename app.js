@@ -3,7 +3,7 @@ const multer = require('multer');
 const { spawn } = require('child_process');
 const cors = require('cors');
 const path = require('path');
-const archiver = require('archiver');
+const fs = require('fs');
 
 const app = express();
 const PORT = 3000;
@@ -71,26 +71,40 @@ app.get('/processed_images/:imageName', (req, res) => {
     console.log(`Processed image sent: ${imagePath}`);
 });
 
+app.get('/clear_folder', (req, res) => {
+    console.log('Clearing folders...');
+    
+    const lrFolderPath = path.join(__dirname, 'ESRGAN_trial', 'LR');
+    const resultsFolderPath = path.join(__dirname, 'ESRGAN_trial', 'results');
+    
+    clearFolder(lrFolderPath);
+    clearFolder(resultsFolderPath);
+
+    res.json({ message: 'Folders cleared' });
+});
+
+function clearFolder(folderPath) {
+    if (fs.existsSync(folderPath)) {
+        const files = fs.readdirSync(folderPath);
+
+        for (const file of files) {
+            const filePath = path.join(folderPath, file);
+
+            if (fs.statSync(filePath).isFile()) {
+                fs.unlinkSync(filePath);
+                console.log(`Deleted file: ${filePath}`);
+            } else {
+                clearFolder(filePath);
+                fs.rmdirSync(filePath);
+                console.log(`Deleted directory: ${filePath}`);
+            }
+        }
+    }
+}
+
 app.get('/', (req, res) => {
     console.log('Serving index.html...');
     res.sendFile(path.join(__dirname,'public', 'index.html'));
-});
-
-app.get('/download', function(req, res) {
-    var archive = archiver('zip', {
-        zlib: { level: 9 } // Sets the compression level.
-    });
-
-    // This is the name of the downloaded file
-    res.attachment('results.zip');
-
-    // This pipes the archive data to the file
-    archive.pipe(res);
-
-    // This is where you set the folder to be zipped and downloaded
-    archive.directory(path.join(__dirname, 'ESRGAN_trial', 'results'), false);
-
-    archive.finalize();
 });
 
 app.use(express.static('public'));

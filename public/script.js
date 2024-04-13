@@ -14,34 +14,46 @@ downloadButton.addEventListener("click", downloadImage);
 function uploadImage() {
     console.log('Uploading image...');
     let imgLink = URL.createObjectURL(inputFile.files[0]);
-    imageView.style.backgroundImage = `url(${imgLink})`;
-    imageView.textContent = "";
-    imageView.style.border = 0;
+    imageView.style.backgroundColor = "ghostwhite";
+    imageView.style.border = "2px solid #bbb5ff";
+    imageView.innerHTML = `
+        <img src="${imgLink}" style="width: auto; height: 100%; margin: 0;">
+    `;
+
     console.log('Image uploaded.');
 }
 
 function cancelUpload() {
     console.log('Cancelling upload...');
-    if (imageView.style.backgroundImage === 'none') {
+    if (imageView.style.backgroundColor != 'ghostwhite') {
         alert("There is no uploaded image to cancel.");
     } else {
-        imageView.style.backgroundImage = 'none';
-        resolvedView.style.backgroundImage = 'none';
+        imageView.style.backgroundColor = '#f7f8ff';
         imageView.innerHTML = `
             <img src="img/upload.png">
             <p>Drag and drop or click here<br> to upload image</p>
             <span>Upload any images from desktop</span>
         `;
         imageView.style.border = "2px dashed #bbb5ff";
+
+        resolvedView.style.backgroundColor = 'f7f8ff';
+        resolvedView.innerHTML = `
+            <img src="">
+        `;
+        
         console.log('Upload cancelled.');
-    }
+        inputFile.value = '';
+        clearFolder();
+    }    
 }
 
 function submitImage() {
     console.log('Submitting image...');
-    if (imageView.style.backgroundImage === 'none') {
+    if (imageView.style.backgroundColor === '#f7f8ff') {
         alert("There's no uploaded image to submit.");
     } else {
+        resolvedView.textContent = "Generating Image...";
+
         const imgData = inputFile.files[0];
         
         const formData = new FormData();
@@ -61,25 +73,32 @@ function submitImage() {
         .then(response => response.json())
         .then(data => {
             const processedImageUrl = `${serverUrl}/processed_images/${inputFile.files[0].name.replace('.png', '')}_rlt.png`; // Construct URL for processed image
-            resolvedView.style.backgroundImage = `url(${processedImageUrl})`;
+            resolvedView.style.backgroundColor = "ghostwhite";
             resolvedView.style.border = "2px solid #bbb5ff";
+            resolvedView.innerHTML = `
+                <img src="${processedImageUrl}" style="width: auto; height: 100%; margin: 0;">
+            `;
             console.log('Image processed and displayed.');
         })
-        .catch(error => console.error('Error:', error));
+        .catch(error => {
+            console.error('Error:', error);
+            resolvedView.innerHTML = `
+                <p style="color: red;">Failed to process image.</p>
+            `;
+        });
     }
 }
 
 function downloadImage() {
     console.log('Downloading image...');
-    
-    const backgroundImage = resolvedView.style.backgroundImage;
 
-    if (backgroundImage === 'none' || !backgroundImage) {
+    const imgElement = resolvedView.querySelector('img');
+    const imageUrl = imgElement.src;
+
+    if (!imageUrl || imageUrl === '') {
         alert("There's no processed image to download.");
         return;
     }
-
-    const imageUrl = backgroundImage.replace('url("', '').replace('")', '');
 
     const filename = imageUrl.split('/').pop();
 
@@ -92,6 +111,23 @@ function downloadImage() {
     link.click();
 
     document.body.removeChild(link);
+}
+
+
+function clearFolder() {
+    const serverUrl = window.location.origin; // Get the server URL
+
+    console.log('Request details:', `${serverUrl}/clear_folder`, {
+        method: 'GET'
+    });
+    fetch(`${serverUrl}/clear_folder`, {
+        method: 'GET'
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Folder cleared
+    })
+    .catch(error => console.error('Error:', error));
 }
 
 dropArea.addEventListener("dragover", function (e) {
@@ -107,7 +143,7 @@ dropArea.addEventListener("drop", function (e) {
 
 window.onload = function () {
     console.log('Window loaded.');
-    if (!inputFile.files.length) {
+    if (!inputFile.files) {
         cancelUpload();
     }
 };
