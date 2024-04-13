@@ -169,6 +169,7 @@ form {
 #download-button {
     background-color: #2CB084;
     color: #fff;
+    margin-bottom: 45px;
 }
 
 #submit-button:hover,
@@ -188,7 +189,7 @@ form {
     width: 100%;
     background-color: #032130;
     padding: 20px 0;
-    color: #fff
+    color: #fff;
 }
 
 .footer img {
