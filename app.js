@@ -4,7 +4,6 @@ const { spawn } = require('child_process');
 const cors = require('cors');
 const path = require('path');
 const archiver = require('archiver');
-const fs = require('fs');
 
 const app = express();
 const PORT = 3000;
@@ -79,18 +78,19 @@ app.get('/', (req, res) => {
 
 app.get('/download', function(req, res) {
     var archive = archiver('zip', {
-        zlib: { level: 9 }
+        zlib: { level: 9 } // Sets the compression level.
     });
 
+    // This is the name of the downloaded file
     res.attachment('results.zip');
 
+    // This pipes the archive data to the file
     archive.pipe(res);
 
+    // This is where you set the folder to be zipped and downloaded
     archive.directory(path.join(__dirname, 'ESRGAN_trial', 'results'), false);
 
     archive.finalize();
-
-    console.log('Results zip sent');
 });
 
 app.use(express.static('public'));
