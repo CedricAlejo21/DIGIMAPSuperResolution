@@ -48,9 +48,12 @@
                 <img src="">
             </div>
             <div class="buttons">
-                <button id="download-button">
-                    Download
-                </button>
+                <button id="download-button">Download</button>
+                    <script>
+                        document.getElementById('download-button').addEventListener('click', function() {
+                            window.location.href = '/download';
+                        });
+                    </script>
             </div>
         </div>
     </div>

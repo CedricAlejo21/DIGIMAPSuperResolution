@@ -3,6 +3,8 @@ const multer = require('multer');
 const { spawn } = require('child_process');
 const cors = require('cors');
 const path = require('path');
+const archiver = require('archiver');
+const fs = require('fs');
 
 const app = express();
 const PORT = 3000;
@@ -73,6 +75,22 @@ app.get('/processed_images/:imageName', (req, res) => {
 app.get('/', (req, res) => {
     console.log('Serving index.html...');
     res.sendFile(path.join(__dirname,'public', 'index.html'));
+});
+
+app.get('/download', function(req, res) {
+    var archive = archiver('zip', {
+        zlib: { level: 9 }
+    });
+
+    res.attachment('results.zip');
+
+    archive.pipe(res);
+
+    archive.directory(path.join(__dirname, 'ESRGAN_trial', 'results'), false);
+
+    archive.finalize();
+
+    console.log('Results zip sent');
 });
 
 app.use(express.static('public'));
